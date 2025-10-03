@@ -1,12 +1,72 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class api {
-  Future<dynamic> get({required String Url}) async {
-    http.Response response = await http.get(Uri.parse(Url));
+  Future<dynamic> get({required String Url, @required String? token}) async {
+    Map<String, String> headers = {};
+
+    if (token != null) {
+      headers.addAll({'Authorization': 'Bearer$token'});
+    }
+    http.Response response = await http.get(Uri.parse(Url), headers: headers);
     if (response.statusCode == 200) {
       return response;
     } else {
       throw Exception("eror with status code${response.statusCode}");
+    }
+  }
+
+  Future<dynamic> post({
+    required String url,
+    @required dynamic body,
+    @required String? taken,
+  }) async {
+    Map<String, String> headers = {};
+
+    if (taken != null) {
+      headers.addAll({'Authorization': 'Bearer$taken'});
+    }
+
+    http.Response response = await http.post(
+      Uri.parse(url),
+      body: body,
+      headers: headers,
+    );
+    if (response.statusCode == 200) {
+      Map<String, dynamic> data = jsonDecode(response.body);
+      return data;
+    } else {
+      throw Exception(
+        'eror in with ststus code${response.statusCode}with body${jsonDecode(response.body)}',
+      );
+    }
+  }
+
+  Future<dynamic> put({
+    required String url,
+    @required dynamic body,
+    @required String? taken,
+  }) async {
+    Map<String, String> headers = {};
+    headers.addAll({'Content-Type': 'application/x-www-form-urlencoded'});
+    if (taken != null) {
+      headers.addAll({'Authorization': 'Bearer$taken'});
+    }
+
+    http.Response response = await http.post(
+      Uri.parse(url),
+      body: body,
+      headers: headers,
+    );
+    if (response.statusCode == 200) {
+      Map<String, dynamic> data = jsonDecode(response.body);
+      return data;
+    } else {
+      throw Exception(
+        'eror in with ststus code${response.statusCode}with body${jsonDecode(response.body)}',
+      );
     }
   }
 }

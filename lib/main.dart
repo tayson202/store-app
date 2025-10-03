@@ -32,6 +32,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
+  // ignore: unused_element
   void _incrementCounter() {
     setState(() {
       _counter++;
@@ -72,6 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
             headers: {
               'Accept': 'applications/json',
               'Content-Type': 'multipart/form-data',
+              'Authorization': 'Bearer',
             },
           );
           print(response.body);
