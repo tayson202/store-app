@@ -10,6 +10,7 @@ class Updateproduct {
     required String image,
     required String category,
   }) async {
+    // ignore: missing_required_param
     Map<String, dynamic> data = await api().post(
       url: 'https://fakestoreapi.com/products/$id', // <-- include id here
       body: {

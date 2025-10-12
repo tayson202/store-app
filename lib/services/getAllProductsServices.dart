@@ -3,6 +3,7 @@ import 'package:demo_app/helper/api.dart';
 
 class Allproductsservices {
   Future<List<ProductModel>> GetAllProducts() async {
+    // ignore: missing_required_param
     List<dynamic> data = await api().get(
       Url: 'https://fakestoreapi.com/products',
     );
