@@ -27,16 +27,11 @@ class Home extends StatelessWidget {
         child: FutureBuilder<List<ProductModel>>(
           future: Allproductsservices().GetAllProducts(),
           builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return Center(child: Text('No products found'));
-            } else {
-              List<ProductModel> products = snapshot.data!;
+            if (snapshot.hasData) {
+              List<ProductModel>? products = snapshot.data;
               return GridView.builder(
-                itemCount: products.length,
+                itemCount: products!.length,
+                clipBehavior: Clip.none,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: 1.5,
@@ -47,6 +42,8 @@ class Home extends StatelessWidget {
                   return customcard(product: products[index]);
                 },
               );
+            } else {
+              return Center(child: CircleAvatar());
             }
           },
         ),
