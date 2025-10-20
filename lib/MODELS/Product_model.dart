@@ -1,9 +1,7 @@
-import 'dart:ffi';
-
 class ProductModel {
   final int id;
   final String title;
-  final Double price;
+  final num price;
   final String decreption;
   final String image;
   final RatingModel rating;
@@ -30,8 +28,8 @@ class ProductModel {
 }
 
 class RatingModel {
-  final Double rate;
-  final int count;
+  final num rate;
+  final num count;
   RatingModel({required this.rate, required this.count});
   factory RatingModel.fromjson(jsonData) {
     return RatingModel(rate: jsonData['rate'], count: jsonData['count']);
