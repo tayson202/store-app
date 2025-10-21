@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class api {
+class Api {
+  // ignore: non_constant_identifier_names
   Future<dynamic> get({required String Url, @required String? token}) async {
     Map<String, String> headers = {};
 

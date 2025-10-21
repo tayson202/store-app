@@ -1,4 +1,4 @@
-import 'package:demo_app/MODELS/Product_model.dart';
+/*import 'package:demo_app/MODELS/Product_model.dart';
 import 'package:demo_app/helper/api.dart';
 
 class Updateproduct {
@@ -11,7 +11,7 @@ class Updateproduct {
     required String category,
   }) async {
     // ignore: missing_required_param
-    Map<String, dynamic> data = await api().post(
+    Map<String, dynamic> data = await Api().post(
       url: 'https://fakestoreapi.com/products/$id', // <-- include id here
       body: {
         'title': title,
@@ -24,4 +24,4 @@ class Updateproduct {
 
     return ProductModel.formjson(data);
   }
-}
+}*/

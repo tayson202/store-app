@@ -1,9 +1,9 @@
-import 'package:demo_app/MODELS/Product_model.dart';
+/*import 'package:demo_app/MODELS/Product_model.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class customcard extends StatelessWidget {
-  customcard({Key? key, required this.product}) : super(key: key);
+class CustomCard extends StatelessWidget {
+  CustomCard({Key? key, required this.product}) : super(key: key);
   ProductModel product;
   @override
   Widget build(BuildContext context) {
@@ -53,9 +53,9 @@ class customcard extends StatelessWidget {
         Positioned(
           right: 25,
           top: -60,
-          child: Image.network(product.image, width: 100, height: 100),
+          child: Image.network("https://evergreen.ie/cdn/shop/files/optimum-nutrition-creatine.jpg?v=1749716037", width: 100, height: 100),
         ),
       ],
     );
   }
-}
+}*/

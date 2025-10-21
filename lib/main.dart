@@ -1,4 +1,5 @@
 import 'package:demo_app/screens/home.dart';
+import 'package:demo_app/screens/update_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,7 +12,10 @@ class StoreApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {Home.id: (context) => Home()},
+      routes: {
+        Home.id: (context) => Home(),
+        UpdatePage.id: (context) => UpdatePage(),
+      },
       initialRoute: Home.id,
     );
   }

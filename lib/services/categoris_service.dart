@@ -1,4 +1,4 @@
-import 'package:demo_app/MODELS/Product_model.dart';
+/*import 'package:demo_app/MODELS/Product_model.dart';
 import 'package:demo_app/helper/api.dart';
 
 class CategorisService {
@@ -6,7 +6,7 @@ class CategorisService {
     required String categoryname,
   }) async {
     // ignore: missing_required_param
-    List<dynamic> data = await api().get(
+    List<dynamic> data = await Api().get(
       Url: 'https://fakestoreapi.com/products/category/$categoryname',
     );
 
@@ -16,4 +16,4 @@ class CategorisService {
     }
     return productslist;
   }
-}
+}*/
