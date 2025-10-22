@@ -3,8 +3,10 @@ import 'package:demo_app/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
 class UpdatePage extends StatelessWidget {
-  const UpdatePage({super.key});
+  UpdatePage({super.key});
   static String id = 'update product';
+  String? productname, description, image, category;
+  int? price;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,21 +18,49 @@ class UpdatePage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CustomTextField(hintText: 'product name'),
-            SizedBox(height: 10),
-            CustomTextField(hintText: 'description'),
-            SizedBox(height: 10),
-            CustomTextField(hintText: 'price'),
-            SizedBox(height: 10),
-            CustomTextField(hintText: 'image'),
-            SizedBox(height: 10),
-            CustomTextField(hintText: 'category'),
-            SizedBox(height: 50),
-            CustomButton(text: 'update'),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            //mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomTextField(
+                onChanged: (data) {
+                  productname = data;
+                },
+                hintText: 'product name',
+              ),
+              SizedBox(height: 10),
+              CustomTextField(
+                onChanged: (data) {
+                  description = data;
+                },
+                hintText: 'description',
+              ),
+              SizedBox(height: 10),
+              CustomTextField(
+                inputType: TextInputType.number,
+                onChanged: (data) {
+                  price = int.parse(data);
+                },
+                hintText: 'price',
+              ),
+              SizedBox(height: 10),
+              CustomTextField(
+                onChanged: (data) {
+                  image = data;
+                },
+                hintText: 'image',
+              ),
+              SizedBox(height: 10),
+              CustomTextField(
+                onChanged: (data) {
+                  category = data;
+                },
+                hintText: 'category',
+              ),
+              SizedBox(height: 50),
+              CustomButton(text: 'update'),
+            ],
+          ),
         ),
       ),
     );
