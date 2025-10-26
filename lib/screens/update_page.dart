@@ -1,5 +1,3 @@
-import 'package:demo_app/MODELS/Product_model.dart';
-import 'package:demo_app/services/updateproduct.dart';
 import 'package:demo_app/widgets/custom_button.dart';
 import 'package:demo_app/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -76,9 +74,13 @@ class _UpdatePageState extends State<UpdatePage> {
                 ),
                 SizedBox(height: 50),
                 CustomButton(
-                  text: 'update',
-                  onTap: () {
-                    isLoading = true;
+                  text: 'Update',
+                  onTap: () async {
+                    setState(() {
+                      //isLoading = true;
+                    });
+                  },
+                  /*isLoading = true;
                     setState(() {});
                     try {
                       updateproduct();
@@ -88,7 +90,7 @@ class _UpdatePageState extends State<UpdatePage> {
                     }
                     isLoading = false;
                     setState(() {});
-                  },
+                  },*/
                 ),
               ],
             ),
@@ -98,7 +100,7 @@ class _UpdatePageState extends State<UpdatePage> {
     );
   }
 
-  void updateproduct() {
+  /*void updateproduct() {
     UpdateproductService().updateProduct(
       title: productname!,
       prices: price!,
@@ -106,5 +108,5 @@ class _UpdatePageState extends State<UpdatePage> {
       image: image!,
       category: category!,
     );
-  }
+  }*/
 }

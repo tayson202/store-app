@@ -1,4 +1,4 @@
-import 'package:demo_app/MODELS/Product_model.dart';
+/*import 'package:demo_app/MODELS/Product_model.dart';
 import 'package:demo_app/helper/api.dart';
 
 class AddProductService {
@@ -23,4 +23,4 @@ class AddProductService {
 
     return ProductModel.formjson(data);
   }
-}
+}*/

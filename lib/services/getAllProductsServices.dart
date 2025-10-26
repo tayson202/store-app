@@ -1,4 +1,4 @@
-import 'package:demo_app/MODELS/Product_model.dart';
+/*import 'package:demo_app/MODELS/Product_model.dart';
 import 'package:demo_app/helper/api.dart';
 
 class Allproductsservices {
@@ -14,4 +14,4 @@ class Allproductsservices {
     }
     return productslist;
   }
-}
+}*/
