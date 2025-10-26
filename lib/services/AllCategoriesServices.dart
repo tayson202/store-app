@@ -1,5 +1,5 @@
 // ignore: file_names
-/*import 'package:demo_app/helper/api.dart';
+import 'package:demo_app/helper/api.dart';
 
 class Allcategoriesservices {
   Future<List<dynamic>> getAllcategories() async {
@@ -10,4 +10,4 @@ class Allcategoriesservices {
 
     return data;
   }
-}*/
+}

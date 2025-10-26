@@ -28,7 +28,9 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  modal_progress_hud_nsn: ^0.5.1
   http: ^1.5.0
+  
 
   flutter:
     sdk: flutter

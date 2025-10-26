@@ -146,6 +146,18 @@ class Home extends StatelessWidget {
             onPressed: () {},
             icon: const Icon(Icons.shopping_cart, color: Colors.black),
           ),
+          /* GestureDetector(
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const Card();
+                  },
+                ),
+              );
+            },
+          ),*/
         ],
         backgroundColor: Colors.indigo,
         elevation: 0,

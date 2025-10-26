@@ -1,5 +1,5 @@
 // ignore: file_names
-/*import 'dart:ffi';
+import 'dart:ffi';
 
 class ProductModel {
   final Int id;
@@ -37,4 +37,4 @@ class RatingModel {
   factory RatingModel.fromjson(jsonData) {
     return RatingModel(rate: jsonData['rate'], count: jsonData['count']);
   }
-}*/
+}
