@@ -1,4 +1,7 @@
 import 'package:demo_app/controllers/authcontroller.dart';
+import 'package:demo_app/view/mainscreen.dart';
+import 'package:demo_app/view/onboarding.dart';
+import 'package:demo_app/view/signin.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -12,8 +15,12 @@ class Splashscreen extends StatelessWidget {
     final primary = Theme.of(context).primaryColor;
     Future.delayed(const Duration(milliseconds: 2500), () {
       if (authcontroller.isfirsttime) {
+        Get.off(() => const Onboarding());
       } else if (authcontroller.isloggedin) {
-      } else {}
+        Get.off(() => const Mainscreen());
+      } else {
+        Get.off(() => const Signin());
+      }
     });
 
     return Scaffold(

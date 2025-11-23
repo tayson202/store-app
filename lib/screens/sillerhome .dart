@@ -130,7 +130,7 @@ class customcard extends StatelessWidget {
     );
   }
 }*/
-import 'package:demo_app/screens/update_page.dart';
+/*import 'package:demo_app/screens/update_page.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -251,3 +251,4 @@ class CustomCard extends StatelessWidget {
     );
   }
 }
+*/

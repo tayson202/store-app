@@ -33,11 +33,11 @@ class StoreApp extends StatelessWidget {
       themeMode: themeController.theme,
       defaultTransition: Transition.fade,
       home: Splashscreen(),
-      routes: {
+      /*routes: {
         Home.id: (context) => Home(),
         UpdatePage.id: (context) => UpdatePage(),
       },
-      initialRoute: Home.id,
+      initialRoute: Home.id,*/
     );
   }
 }
