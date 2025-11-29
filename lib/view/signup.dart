@@ -1,18 +1,18 @@
-import 'package:demo_app/controllers/authcontroller.dart';
-import 'package:demo_app/view/forgetpassword.dart';
 import 'package:demo_app/view/mainscreen.dart';
-import 'package:demo_app/view/signup.dart';
+import 'package:demo_app/view/signin.dart';
 import 'package:demo_app/widgets/customtextfield.dart';
 import 'package:demo_app/widgets/textstyle.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-class Signin extends StatelessWidget {
-  Signin({super.key});
-  final TextEditingController _emailcontroller = TextEditingController();
+class Signup extends StatelessWidget {
+  Signup({super.key});
+  final TextEditingController _namecontroller = TextEditingController();
   final TextEditingController _passwordcontroller = TextEditingController();
+  final TextEditingController _emailcontroller = TextEditingController();
+  final TextEditingController _confirmpasswordcontroller =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,32 +25,54 @@ class Signin extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 40),
+              IconButton(
+                onPressed: () => Get.back(),
+                icon: Icon(
+                  Icons.arrow_back_ios,
+                  color: isdark ? Colors.white : Colors.black,
+                ),
+              ),
+              const SizedBox(height: 20),
               Text(
-                "Welcome back, rat",
+                "create account",
                 style: AppTextStyles.withColor(
                   AppTextStyles.h1,
                   Theme.of(context).textTheme.bodyLarge!.color!,
                 ),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8),
               Text(
-                "sign in to continue",
+                "sign up to get started ",
                 style: AppTextStyles.withColor(
                   AppTextStyles.bodylarge,
-                  isdark ? Colors.grey[400]! : Colors.grey[600]!,
+                  isdark ? Colors.grey[400]! : Colors.grey[400]!,
                 ),
               ),
               const SizedBox(height: 40),
               Customtextfield(
+                label: "fullname",
+                prefixIcon: Icons.person_outlined,
+                controller: _namecontroller,
+                keyboardType: TextInputType.name,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "please enter a your name";
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              Customtextfield(
                 label: "email",
                 prefixIcon: Icons.email_outlined,
                 controller: _emailcontroller,
-                ispassword: true,
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "please enter a valid email";
+                    return "please enter a your email";
+                  }
+                  if (!GetUtils.isEmail(value)) {
+                    return 'please enter avalid email';
                   }
                   return null;
                 },
@@ -60,33 +82,36 @@ class Signin extends StatelessWidget {
                 label: "password",
                 prefixIcon: Icons.lock_outlined,
                 controller: _passwordcontroller,
+                ispassword: true,
                 keyboardType: TextInputType.visiblePassword,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "please enter a valid password";
+                    return "please enter a your password";
                   }
                   return null;
                 },
               ),
-              const SizedBox(height: 8),
-              Align(
-                alignment: AlignmentGeometry.centerRight,
-                child: TextButton(
-                  onPressed: () => Get.to(() => Forgetpassword()),
-                  child: Text(
-                    "forgot password?",
-                    style: AppTextStyles.withColor(
-                      AppTextStyles.buttonmid,
-                      Theme.of(context).primaryColor,
-                    ),
-                  ),
-                ),
+              const SizedBox(height: 16),
+              Customtextfield(
+                label: "confirm password",
+                prefixIcon: Icons.lock_outlined,
+                controller: _passwordcontroller,
+                ispassword: true,
+                keyboardType: TextInputType.visiblePassword,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "please confirm your password";
+                  }
+                  if (value != _passwordcontroller.text) {
+                    return "passwords dont match";
+                  }
+                  return null;
+                },
               ),
-              const SizedBox(height: 24),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: _handlesignin,
+                  onPressed: () => Get.off(() => const Mainscreen()),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).primaryColor,
                     padding: const EdgeInsets.symmetric(vertical: 16),
@@ -95,7 +120,7 @@ class Signin extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    'signin',
+                    'sign up',
                     style: AppTextStyles.withColor(
                       AppTextStyles.buttonmid,
                       Colors.white,
@@ -108,16 +133,16 @@ class Signin extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "dont have an account?",
+                    "alredy have an account?",
                     style: AppTextStyles.withColor(
                       AppTextStyles.bodymid,
                       isdark ? Colors.grey[400]! : Colors.grey[600]!,
                     ),
                   ),
                   TextButton(
-                    onPressed: () => Get.to(() => Signup()),
+                    onPressed: () => Get.to(() => Signin()),
                     child: Text(
-                      'sign up',
+                      'sign in',
                       style: AppTextStyles.withColor(
                         AppTextStyles.buttonmid,
                         Theme.of(context).primaryColor,
@@ -131,11 +156,5 @@ class Signin extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _handlesignin() {
-    final Authcontroller authcontroller = Get.find<Authcontroller>();
-    authcontroller.login();
-    Get.offAll(() => const Mainscreen());
   }
 }
