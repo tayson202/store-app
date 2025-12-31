@@ -4,7 +4,6 @@ import 'package:demo_app/view/onboarding.dart';
 import 'package:demo_app/view/signin.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class Splashscreen extends StatelessWidget {
   Splashscreen({super.key});
@@ -121,7 +120,7 @@ class Splashscreen extends StatelessWidget {
 class GridPattern extends StatelessWidget {
   final Color color;
 
-  const GridPattern({Key? key, required this.color}) : super(key: key);
+  const GridPattern({super.key, required this.color});
 
   @override
   Widget build(BuildContext context) {

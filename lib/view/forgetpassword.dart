@@ -1,10 +1,7 @@
-import 'dart:ui';
-
 import 'package:demo_app/widgets/customtextfield.dart';
 import 'package:demo_app/widgets/textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class Forgetpassword extends StatelessWidget {
   Forgetpassword({super.key});

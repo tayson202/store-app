@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class UpdatePage extends StatefulWidget {
-  UpdatePage({super.key});
+  const UpdatePage({super.key});
   static String id = 'update product';
 
   @override
