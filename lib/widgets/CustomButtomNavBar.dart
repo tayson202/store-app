@@ -18,16 +18,23 @@ class Custombuttomnavbar extends StatelessWidget {
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),
             label: 'home',
+            backgroundColor: Colors.redAccent,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_bag_outlined),
             label: 'shopping',
+            backgroundColor: Colors.redAccent,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite_outlined),
             label: 'wishlist',
+            backgroundColor: Colors.redAccent,
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'account'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'account',
+            backgroundColor: Colors.redAccent,
+          ),
         ],
       ),
     );

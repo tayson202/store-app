@@ -5,6 +5,6 @@ class Shoppingscreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: const Text('whishlistscreen')));
+    return Scaffold(appBar: AppBar(title: const Text('shoppingscreen')));
   }
 }
