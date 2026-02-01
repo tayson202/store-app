@@ -10,6 +10,7 @@ class Signup extends StatelessWidget {
   final TextEditingController _namecontroller = TextEditingController();
   final TextEditingController _passwordcontroller = TextEditingController();
   final TextEditingController _emailcontroller = TextEditingController();
+  // ignore: unused_field
   final TextEditingController _confirmpasswordcontroller =
       TextEditingController();
 

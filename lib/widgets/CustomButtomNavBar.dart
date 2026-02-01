@@ -1,7 +1,6 @@
 import 'package:demo_app/controllers/navigation_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class Custombuttomnavbar extends StatelessWidget {
   const Custombuttomnavbar({super.key});
