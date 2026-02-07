@@ -1,20 +1,29 @@
-import 'package:demo_app/widgets/CategoryChips.dart';
 import 'package:demo_app/widgets/ProductGrid.dart';
 import 'package:demo_app/widgets/filterbottomsheet.dart';
 import 'package:demo_app/widgets/textstyle.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
-class Shoppingscreen extends StatelessWidget {
-  const Shoppingscreen({super.key});
+class Allproductscreen extends StatelessWidget {
+  const Allproductscreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final isdark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => Get.back(),
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: isdark ? Colors.white : Colors.black,
+          ),
+        ),
         title: Text(
-          'shopping',
+          'all products',
           style: AppTextStyles.withColor(
             AppTextStyles.h3,
             isdark ? Colors.white : Colors.black,
@@ -39,12 +48,7 @@ class Shoppingscreen extends StatelessWidget {
           ),
         ],
       ),
-      body: const Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 16), child: Categorychips()),
-          Expanded(child: Productgrid()),
-        ],
-      ),
+      body: const Productgrid(),
     );
   }
 }
