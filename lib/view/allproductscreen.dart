@@ -2,8 +2,7 @@ import 'package:demo_app/widgets/ProductGrid.dart';
 import 'package:demo_app/widgets/filterbottomsheet.dart';
 import 'package:demo_app/widgets/textstyle.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get.dart' show Get, GetNavigation;
 
 class Allproductscreen extends StatelessWidget {
   const Allproductscreen({super.key});

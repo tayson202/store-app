@@ -1,8 +1,8 @@
-import 'package:demo_app/widgets/textstyle.dart';
-import 'package:flutter/foundation.dart';
+// ignore_for_file: non_constant_identifier_names
+
+import 'textstyle.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get.dart' show Get, GetNavigation;
 
 class Filterbottomsheet {
   static void show(BuildContext context) {
@@ -108,6 +108,7 @@ class Filterbottomsheet {
                         backgroundColor: Theme.of(context).cardColor,
                         selectedColor: Theme.of(
                           context,
+                          // ignore: deprecated_member_use
                         ).primaryColor.withOpacity(0.2),
                         labelStyle: AppTextStyles.withColor(
                           AppTextStyles.bodymid,
