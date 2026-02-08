@@ -1,5 +1,6 @@
 import 'package:demo_app/controllers/themecontroll.dart';
 import 'package:demo_app/view/allproductscreen.dart';
+import 'package:demo_app/view/cartscreen.dart';
 import 'package:demo_app/widgets/CategoryChips.dart';
 import 'package:demo_app/widgets/CustomSearchBar.dart';
 import 'package:demo_app/widgets/ProductGrid.dart';
@@ -49,7 +50,7 @@ class Homescreen extends StatelessWidget {
                     icon: Icon(Icons.notifications_outlined),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () => Get.to(() => Cartscreen()),
                     icon: Icon(Icons.shopping_bag_outlined),
                   ),
                   GetBuilder<Themecontroll>(
