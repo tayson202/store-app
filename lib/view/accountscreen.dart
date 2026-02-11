@@ -1,9 +1,9 @@
 import 'package:demo_app/controllers/authcontroller.dart';
+import 'package:demo_app/view/settingscreen.dart';
 import 'package:demo_app/view/signin.dart';
 import 'package:demo_app/widgets/textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class Accountscreen extends StatelessWidget {
   const Accountscreen({super.key});
@@ -23,7 +23,7 @@ class Accountscreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () => Get.to(() => const Settingscreen()),
             icon: Icon(
               Icons.settings_outlined,
               color: isdark ? Colors.white : Colors.black,
