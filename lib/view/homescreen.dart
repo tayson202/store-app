@@ -1,4 +1,5 @@
 import 'package:demo_app/controllers/themecontroll.dart';
+import 'package:demo_app/features/notifications/models/view/notificationscreen.dart';
 import 'package:demo_app/view/allproductscreen.dart';
 import 'package:demo_app/view/cartscreen.dart';
 import 'package:demo_app/widgets/CategoryChips.dart';
@@ -46,7 +47,7 @@ class Homescreen extends StatelessWidget {
                   ),
                   const Spacer(),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () => Get.to(() => Notificationscreen()),
                     icon: Icon(Icons.notifications_outlined),
                   ),
                   IconButton(

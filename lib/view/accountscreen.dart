@@ -10,6 +10,7 @@ class Accountscreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final screensize = MediaQuery.of(context).size;
     final isdark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
