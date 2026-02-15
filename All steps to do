@@ -1,0 +1,36 @@
+//user interface
+1 theme
+2 splash screen
+3 onboarding scrren
+4 authentication screens
+5 home screen
+6 product details screen
+7 all product screen
+8 my cart screen
+9 whishlist screen
+10 account screen
+11 settings screen
+12 notification screen
+13 myorders screen
+14 shipping screen
+15 edit profile screen
+16 help center screen
+17 privacy screen
+18 checkout screen
+19 order confirmation screen
+// seller interface
+1 theme
+2 splash screen
+3 onboarding scrren
+4 authentication screens
+5 home screen
+6  product details screen
+7 all product screen
+8 account screen
+9 settings screen
+10 notification screen
+11 edit product
+12 edit profile
+13 help center screen
+14 privacy screen
+// Ai chat

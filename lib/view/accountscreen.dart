@@ -1,4 +1,5 @@
 import 'package:demo_app/controllers/authcontroller.dart';
+import 'package:demo_app/features/notifications/models/myorders/model/view/screens/myorderscreen.dart';
 import 'package:demo_app/view/settingscreen.dart';
 import 'package:demo_app/view/signin.dart';
 import 'package:demo_app/widgets/textstyle.dart';
@@ -10,7 +11,6 @@ class Accountscreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: unused_local_variable
     final screensize = MediaQuery.of(context).size;
     final isdark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
@@ -148,7 +148,7 @@ class Accountscreen extends StatelessWidget {
                 if (item['title'] == 'logout') {
                   showlogoutdialog(context);
                 } else if (item['title'] == 'my orders') {
-                  // navigation to my orders screen
+                  Get.to(() => const Myorderscreen());
                 } else if (item['title'] == 'address') {
                   // navigation to my address
                 } else if (item['title'] == 'help center') {
