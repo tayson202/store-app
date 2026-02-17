@@ -1,5 +1,6 @@
 import 'package:demo_app/controllers/authcontroller.dart';
 import 'package:demo_app/features/notifications/models/myorders/model/view/screens/myorderscreen.dart';
+import 'package:demo_app/features/shippingaddress/model/repositories/widget/shippingaddress.dart';
 import 'package:demo_app/view/settingscreen.dart';
 import 'package:demo_app/view/signin.dart';
 import 'package:demo_app/widgets/textstyle.dart';
@@ -150,7 +151,7 @@ class Accountscreen extends StatelessWidget {
                 } else if (item['title'] == 'my orders') {
                   Get.to(() => Myorderscreen());
                 } else if (item['title'] == 'address') {
-                  // navigation to my address
+                  Get.to(() => Shippingaddress());
                 } else if (item['title'] == 'help center') {
                   // navigation to my help center screen
                 }
