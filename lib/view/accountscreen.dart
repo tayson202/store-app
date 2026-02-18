@@ -1,4 +1,5 @@
 import 'package:demo_app/controllers/authcontroller.dart';
+import 'package:demo_app/features/editprofile/view/screeens/editprofilescreen.dart';
 import 'package:demo_app/features/notifications/models/myorders/model/view/screens/myorderscreen.dart';
 import 'package:demo_app/features/shippingaddress/model/repositories/widget/shippingaddress.dart';
 import 'package:demo_app/view/settingscreen.dart';
@@ -12,6 +13,7 @@ class Accountscreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final screensize = MediaQuery.of(context).size;
     final isdark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
@@ -80,7 +82,7 @@ class Accountscreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           OutlinedButton(
-            onPressed: () {},
+            onPressed: ()=>Get.to(()=>Editprofilescreen()),
             style: OutlinedButton.styleFrom(
               padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
               side: BorderSide(color: isdark ? Colors.white70 : Colors.black12),
