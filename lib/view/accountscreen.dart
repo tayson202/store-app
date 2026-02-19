@@ -1,5 +1,6 @@
 import 'package:demo_app/controllers/authcontroller.dart';
 import 'package:demo_app/features/editprofile/view/screeens/editprofilescreen.dart';
+import 'package:demo_app/features/helpcenter/view/screens/widget/helpcenterscreen.dart';
 import 'package:demo_app/features/notifications/models/myorders/model/view/screens/myorderscreen.dart';
 import 'package:demo_app/features/shippingaddress/model/repositories/widget/shippingaddress.dart';
 import 'package:demo_app/view/settingscreen.dart';
@@ -155,7 +156,7 @@ class Accountscreen extends StatelessWidget {
                 } else if (item['title'] == 'address') {
                   Get.to(() => Shippingaddress());
                 } else if (item['title'] == 'help center') {
-                  // navigation to my help center screen
+                  Get.to(() => Helpcenterscreen());
                 }
               },
             ),
