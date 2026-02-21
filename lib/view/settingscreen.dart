@@ -1,4 +1,6 @@
 import 'package:demo_app/controllers/themecontroll.dart';
+import 'package:demo_app/features/privacypolicy/view/screens/privacypolicyscreen.dart';
+import 'package:demo_app/features/terms%20of%20service/view/widget/screens/termsofservicescreen.dart';
 import 'package:demo_app/widgets/textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -51,6 +53,7 @@ class Settingscreen extends StatelessWidget {
                 'privacy policy',
                 'view our privacy policy',
                 Icons.privacy_tip_outlined,
+                onTap: () => Get.to(()=>Privacypolicyscreen()),
               ),
               buildnavigationtile(
                 context,
@@ -58,8 +61,16 @@ class Settingscreen extends StatelessWidget {
                 'read our terms of services',
                 Icons.description_outlined,
               ),
+              buildnavigationtile(
+                context,
+                'terms of service',
+                'read our terms of services',
+                Icons.description_outlined,
+                onTap: () => Get.to(()=>const Termsofservicescreen()),
+              ),
             ]),
-            buildsection(context, 'about', [
+            buildsection(context,
+             'about', [
               buildnavigationtile(
                 context,
                 'app version',
@@ -187,45 +198,49 @@ class Settingscreen extends StatelessWidget {
     BuildContext context,
     String title,
     String subtitle,
-    IconData icon,
-  ) {
+    IconData icon, {
+    VoidCallback? onTap,
+  }) {
     final isdark = Theme.of(context).brightness == Brightness.dark;
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: isdark
-                ? Colors.black.withOpacity(0.2)
-                : Colors.grey.withOpacity(0.1),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: ListTile(
-        leading: Icon(icon, color: Theme.of(context).primaryColor),
-        title: Text(
-          title,
-          style: AppTextStyles.withColor(
-            AppTextStyles.bodymid,
-            Theme.of(context).textTheme.bodyLarge!.color!,
-          ),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: Theme.of(context).cardColor,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: isdark
+                  ? Colors.black.withOpacity(0.2)
+                  : Colors.grey.withOpacity(0.1),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
         ),
-        subtitle: Text(
-          subtitle,
-          style: AppTextStyles.withColor(
-            AppTextStyles.bodysmall,
-            isdark ? Colors.grey[400]! : Colors.grey[600]!,
+        child: ListTile(
+          leading: Icon(icon, color: Theme.of(context).primaryColor),
+          title: Text(
+            title,
+            style: AppTextStyles.withColor(
+              AppTextStyles.bodymid,
+              Theme.of(context).textTheme.bodyLarge!.color!,
+            ),
           ),
+          subtitle: Text(
+            subtitle,
+            style: AppTextStyles.withColor(
+              AppTextStyles.bodysmall,
+              isdark ? Colors.grey[400]! : Colors.grey[600]!,
+            ),
+          ),
+          trailing: Icon(
+            Icons.chevron_right,
+            color: isdark ? Colors.grey[400] : Colors.grey[600],
+          ),
+          //onTap: () {},
         ),
-        trailing: Icon(
-          Icons.chevron_right,
-          color: isdark ? Colors.grey[400] : Colors.grey[600],
-        ),
-        onTap: () {},
       ),
     );
   }
