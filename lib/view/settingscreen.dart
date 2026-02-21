@@ -4,7 +4,6 @@ import 'package:demo_app/features/terms%20of%20service/view/widget/screens/terms
 import 'package:demo_app/widgets/textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/route_manager.dart';
 
 class Settingscreen extends StatelessWidget {
   const Settingscreen({super.key});

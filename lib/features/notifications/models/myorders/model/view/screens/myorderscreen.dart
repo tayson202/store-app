@@ -3,7 +3,6 @@ import 'package:demo_app/features/notifications/models/myorders/model/view/scree
 import 'package:demo_app/features/notifications/models/myorders/model/view/widgets/ordercard.dart';
 import 'package:demo_app/widgets/textstyle.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 

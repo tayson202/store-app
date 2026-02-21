@@ -1,7 +1,6 @@
 import 'package:demo_app/widgets/textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
 
 class Profileimage extends StatelessWidget {
   const Profileimage({super.key});

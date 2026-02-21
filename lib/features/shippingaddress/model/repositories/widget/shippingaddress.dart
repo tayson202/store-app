@@ -3,7 +3,6 @@ import 'package:demo_app/features/shippingaddress/model/repositories/widget/addr
 import 'package:demo_app/features/shippingaddress/model/repositories/widget/addressrepository.dart';
 import 'package:demo_app/widgets/textstyle.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/route_manager.dart';
 
 class Shippingaddress extends StatelessWidget {

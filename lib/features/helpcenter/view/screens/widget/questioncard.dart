@@ -1,6 +1,5 @@
 import 'package:demo_app/widgets/textstyle.dart';
 import 'package:flutter/material.dart';
-import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 
 class Questioncard extends StatelessWidget {

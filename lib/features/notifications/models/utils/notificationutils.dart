@@ -1,6 +1,5 @@
 import 'package:demo_app/features/notifications/models/notificationtype.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class Notificationutils {
   static IconData getnotificationicon(Notificationtype type) {

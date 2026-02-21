@@ -1,7 +1,6 @@
 import 'package:demo_app/features/privacypolicy/view/widget/infosection.dart';
 import 'package:demo_app/widgets/textstyle.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/route_manager.dart';
 
 class Privacypolicyscreen extends StatelessWidget {

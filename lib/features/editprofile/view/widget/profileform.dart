@@ -1,9 +1,7 @@
-import 'package:demo_app/widgets/custom_text_field.dart';
 import 'package:demo_app/widgets/customtextfield.dart';
 import 'package:demo_app/widgets/textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
 
 class Profileform extends StatelessWidget {
   const Profileform({super.key});

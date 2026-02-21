@@ -1,6 +1,5 @@
 import 'package:demo_app/widgets/textstyle.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class Infosection extends StatelessWidget {
   final String title;

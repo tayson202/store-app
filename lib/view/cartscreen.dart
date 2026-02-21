@@ -1,4 +1,5 @@
 import 'package:demo_app/controllers/product.dart';
+import 'package:demo_app/features/checkout/view/screens/checkoutscreen.dart';
 import 'package:demo_app/widgets/textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
@@ -290,9 +291,7 @@ class Cartscreen extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {
-                //navigate to checkout screen
-              },
+              onPressed: ()=>Get.to(()=>Checkoutscreen()),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).primaryColor,
                 padding: const EdgeInsets.symmetric(vertical: 16),
