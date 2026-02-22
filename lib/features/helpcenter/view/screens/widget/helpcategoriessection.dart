@@ -13,6 +13,7 @@ class Helpcategoriessection extends StatelessWidget {
       {'item': Icons.local_shipping_outlined, 'title': 'shipping'},
       {'item': Icons.assignment_return_outlined, 'title': 'returns'},
     ];
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
@@ -35,11 +36,11 @@ class Helpcategoriessection extends StatelessWidget {
               mainAxisSpacing: 16,
               childAspectRatio: 1.5,
             ),
-            itemCount:categories.length ,
+            itemCount: categories.length,
             itemBuilder: (context, index) {
               return Categorycard(
-                title: categories[index]['title']as String,
-                icon: categories[index]['icon']as IconData,
+                title: categories[index]['title'] as String,
+                icon: categories[index]['item'] as IconData, // ✔ FIXED KEY
               );
             },
           ),
