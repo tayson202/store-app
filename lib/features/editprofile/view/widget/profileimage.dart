@@ -22,7 +22,7 @@ class Profileimage extends StatelessWidget {
               ),
               image: const DecorationImage(
                 image: AssetImage(
-                  'asset/307ce493-b254-4b2d-8ba4-d12c080d6651.jpg',
+                  'asset/image/307ce493-b254-4b2d-8ba4-d12c080d6651.jpg',
                 ),
                 fit: BoxFit.cover,
               ),

@@ -19,17 +19,17 @@ class _OnboardingState extends State<Onboarding> {
     Onboardingitem(
       desc: 'explore the purest supplements',
       title: 'discover your future',
-      image: 'image', // Replace with actual asset path
+      image: 'asset/image/Supplements.png', // Replace with actual asset path
     ),
     Onboardingitem(
       desc: 'shop premium quality products from all brands worldwide',
       title: 'quality products',
-      image: 'image',
+      image: 'asset/animation/Supplements.mp4',
     ),
     Onboardingitem(
       desc: 'simple and secure shopping experience',
       title: 'easy fast',
-      image: 'image',
+      image: 'asset/image/card.webp',
     ),
   ];
 

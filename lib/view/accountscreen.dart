@@ -62,7 +62,7 @@ class Accountscreen extends StatelessWidget {
           CircleAvatar(
             radius: 50,
             backgroundImage: AssetImage(
-              'asset/307ce493-b254-4b2d-8ba4-d12c080d6651.jpg',
+              'asset/image/307ce493-b254-4b2d-8ba4-d12c080d6651.jpg',
             ),
           ),
           const SizedBox(height: 15),
