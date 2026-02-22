@@ -6,7 +6,6 @@ import 'package:demo_app/features/orderconfirmation/screens/orderconfirmationscr
 import 'package:demo_app/widgets/textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
 
 class Checkoutscreen extends StatelessWidget {
   const Checkoutscreen({super.key});
@@ -56,7 +55,10 @@ class Checkoutscreen extends StatelessWidget {
           //generate arandom order number feom backend
           final orderNumber =
               'ord${DateTime.now().millisecondsSinceEpoch.toString().substring(7)}';
-          Get.to(() => Orderconfirmationscreen());
+          Get.to(() => Orderconfirmationscreen(
+            ordernumber: orderNumber,
+            totalamount: 665.25,
+          ));
         },
       ),
     );

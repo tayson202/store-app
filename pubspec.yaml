@@ -42,6 +42,7 @@ dependencies:
   get: ^4.7.2            # latest stable :contentReference[oaicite:1]{index=1}  
   get_storage: ^2.1.1    # latest stable :contentReference[oaicite:2]{index=2}  
   share_plus: ^12.0.1
+  lottie: ^3.3.2
 
 
 dev_dependencies:
@@ -73,6 +74,9 @@ flutter:
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
+  assets:
+    - assets/images/
+    - assets/animations/
 
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/to/asset-from-package
