@@ -23,7 +23,7 @@ class Productgrid extends StatelessWidget {
           onTap: () => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => productdatascreen(product: product),
+              builder: (context) => ProductDataScreen(product: product),
             ),
           ),
           child: Productcard(product: product),

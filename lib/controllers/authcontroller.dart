@@ -20,12 +20,12 @@ class Authcontroller extends GetxController {
 
   void setFirstTimeDone() {
     _isfirsttime.value = false;
-    _storage.write('isloggedin', true);
+    _storage.write('isfirsttime', false);
   }
 
   void login() {
-    _isloggedin.value = false;
-    _storage.write('isloggedin', false);
+    _isloggedin.value = true;
+    _storage.write('isloggedin', true);
   }
 
   void logout() {

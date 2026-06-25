@@ -25,7 +25,7 @@ class Signin extends StatelessWidget {
             children: [
               const SizedBox(height: 40),
               Text(
-                "Welcome back, rat",
+                "Welcome back",
                 style: AppTextStyles.withColor(
                   AppTextStyles.h1,
                   Theme.of(context).textTheme.bodyLarge!.color!,
@@ -44,7 +44,6 @@ class Signin extends StatelessWidget {
                 label: "email",
                 prefixIcon: Icons.email_outlined,
                 controller: _emailcontroller,
-                ispassword: true,
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -58,6 +57,7 @@ class Signin extends StatelessWidget {
                 label: "password",
                 prefixIcon: Icons.lock_outlined,
                 controller: _passwordcontroller,
+                ispassword: true,
                 keyboardType: TextInputType.visiblePassword,
                 validator: (value) {
                   if (value == null || value.isEmpty) {

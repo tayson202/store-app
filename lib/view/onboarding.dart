@@ -1,6 +1,7 @@
 import 'package:demo_app/controllers/authcontroller.dart';
 import 'package:demo_app/view/signin.dart';
 import 'package:demo_app/widgets/textstyle.dart';
+import 'package:demo_app/widgets/video_player_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -55,13 +56,21 @@ class _OnboardingState extends State<Onboarding> {
               });
             },
             itemBuilder: (context, index) {
+              final imagePath = _item[index].image;
+              final isVideo = imagePath.endsWith('.mp4');
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    _item[index].image,
-                    height: MediaQuery.of(context).size.height * 0.4,
-                  ),
+                  isVideo
+                      ? LocalVideoPlayer(
+                          assetPath: imagePath,
+                          height: MediaQuery.of(context).size.height * 0.4,
+                          width: double.infinity,
+                        )
+                      : Image.asset(
+                          imagePath,
+                          height: MediaQuery.of(context).size.height * 0.4,
+                        ),
                   const SizedBox(height: 40),
 
                   Text(

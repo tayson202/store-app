@@ -1,6 +1,9 @@
+import 'package:demo_app/controllers/address_controller.dart';
 import 'package:demo_app/controllers/authcontroller.dart';
+import 'package:demo_app/controllers/cart_controller.dart';
 import 'package:demo_app/controllers/navigation_controller.dart';
 import 'package:demo_app/controllers/themecontroll.dart';
+import 'package:demo_app/controllers/wishlist_controller.dart';
 import 'package:demo_app/view/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +14,9 @@ void main() async {
   Get.put(Themecontroll());
   Get.put(Authcontroller());
   Get.put(NavigationController());
+  Get.put(WishlistController());
+  Get.put(CartController());
+  Get.put(AddressController());
   runApp(const StoreApp());
 }
 

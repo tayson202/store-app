@@ -23,7 +23,6 @@ class Mainscreen extends StatelessWidget {
           () => AnimatedSwitcher(
             duration: const Duration(milliseconds: 200),
             child: IndexedStack(
-              key: ValueKey(navigationController.currentIndex.value),
               index: navigationController.currentIndex.value,
               children: const [
                 Homescreen(),

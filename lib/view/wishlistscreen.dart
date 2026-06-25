@@ -1,6 +1,9 @@
+import 'package:demo_app/controllers/cart_controller.dart';
 import 'package:demo_app/controllers/product.dart';
+import 'package:demo_app/controllers/wishlist_controller.dart';
 import 'package:demo_app/widgets/textstyle.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Wishlistscreen extends StatelessWidget {
   const Wishlistscreen({super.key});
@@ -8,49 +11,84 @@ class Wishlistscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isdark = Theme.of(context).brightness == Brightness.dark;
+    final WishlistController wishlistController = Get.find<WishlistController>();
+    final CartController cartController = Get.find<CartController>();
+
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(
-          'whishlistscreen',
+          'wishlist',
           style: AppTextStyles.withColor(
             AppTextStyles.h3,
             isdark ? Colors.white : Colors.black,
           ),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.search,
-              color: isdark ? Colors.white : Colors.black,
-            ),
-          ),
-        ],
       ),
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(child: buildsummerysection(context)),
-          SliverPadding(
-            padding: const EdgeInsets.all(16),
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) => buildwishlistitem(
-                  context,
-                  products.where((p) => p.isfavorite).toList()[index],
+      body: Obx(() {
+        final List<Product> favoriteProducts = products
+            .where((p) => wishlistController.isFavorite(p))
+            .toList();
+
+        if (favoriteProducts.isEmpty) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.favorite_border_outlined,
+                  size: 80,
+                  color: isdark ? Colors.grey[700] : Colors.grey[300],
                 ),
-                childCount: products.where((p) => p.isfavorite).length,
+                const SizedBox(height: 24),
+                Text(
+                  'your wishlist is empty',
+                  style: AppTextStyles.withColor(
+                    AppTextStyles.h2,
+                    isdark ? Colors.grey[400]! : Colors.grey[600]!,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'tap the favorite icon on items to add them here',
+                  style: AppTextStyles.withColor(
+                    AppTextStyles.bodymid,
+                    isdark ? Colors.grey[500]! : Colors.grey[500]!,
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+
+        return CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: buildsummerysection(context, favoriteProducts.length),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.all(16),
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) => buildwishlistitem(
+                    context,
+                    favoriteProducts[index],
+                  ),
+                  childCount: favoriteProducts.length,
+                ),
               ),
             ),
-          ),
-        ],
-      ),
+          ],
+        );
+      }),
     );
   }
 
-  Widget buildsummerysection(BuildContext context) {
+  Widget buildsummerysection(BuildContext context, int count) {
     final isdark = Theme.of(context).brightness == Brightness.dark;
-    final favoriteproducts = products.where((p) => p.isfavorite).length;
+    final WishlistController wishlistController = Get.find<WishlistController>();
+    final CartController cartController = Get.find<CartController>();
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -64,7 +102,7 @@ class Wishlistscreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '$favoriteproducts items',
+                '$count items',
                 style: AppTextStyles.withColor(
                   AppTextStyles.h2,
                   Theme.of(context).textTheme.bodyLarge!.color!,
@@ -81,7 +119,18 @@ class Wishlistscreen extends StatelessWidget {
             ],
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              wishlistController.addAllToCart(cartController);
+              Get.snackbar(
+                'Wishlist Swapped',
+                'All wishlist items were added to your cart.',
+                snackPosition: SnackPosition.BOTTOM,
+                backgroundColor: Theme.of(context).primaryColor,
+                colorText: Colors.white,
+                margin: const EdgeInsets.all(16),
+                borderRadius: 12,
+              );
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: Theme.of(context).primaryColor,
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
@@ -101,6 +150,9 @@ class Wishlistscreen extends StatelessWidget {
 
   Widget buildwishlistitem(BuildContext context, Product product) {
     final isdark = Theme.of(context).brightness == Brightness.dark;
+    final WishlistController wishlistController = Get.find<WishlistController>();
+    final CartController cartController = Get.find<CartController>();
+
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
@@ -164,13 +216,24 @@ class Wishlistscreen extends StatelessWidget {
                       Row(
                         children: [
                           IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.shopping_cart_outlined),
+                            onPressed: () {
+                              cartController.addProduct(product, 'M');
+                              Get.snackbar(
+                                'Added to Cart',
+                                '${product.name} was added to your cart.',
+                                snackPosition: SnackPosition.BOTTOM,
+                                backgroundColor: Theme.of(context).primaryColor,
+                                colorText: Colors.white,
+                                margin: const EdgeInsets.all(16),
+                                borderRadius: 12,
+                              );
+                            },
+                            icon: const Icon(Icons.shopping_cart_outlined),
                             color: Theme.of(context).primaryColor,
                           ),
                           IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.delete_outline),
+                            onPressed: () => wishlistController.toggleFavorite(product),
+                            icon: const Icon(Icons.delete_outline),
                             color: isdark
                                 ? Colors.grey[400]!
                                 : Colors.grey[600]!,

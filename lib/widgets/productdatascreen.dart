@@ -1,19 +1,34 @@
+import 'package:demo_app/controllers/cart_controller.dart';
 import 'package:demo_app/controllers/product.dart';
+import 'package:demo_app/controllers/wishlist_controller.dart';
+import 'package:demo_app/view/cartscreen.dart';
 import 'package:demo_app/widgets/sizeselector.dart';
 import 'package:demo_app/widgets/textstyle.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 
-class productdatascreen extends StatelessWidget {
+class ProductDataScreen extends StatefulWidget {
   final Product product;
-  const productdatascreen({super.key, required this.product});
+  const ProductDataScreen({super.key, required this.product});
+
+  @override
+  State<ProductDataScreen> createState() => _ProductDataScreenState();
+}
+
+class _ProductDataScreenState extends State<ProductDataScreen> {
+  String _selectedSize = 'M';
 
   @override
   Widget build(BuildContext context) {
+    final product = widget.product;
     final screensize = MediaQuery.of(context).size;
     final screenhight = screensize.height;
     final screenwidth = screensize.width;
     final isdark = Theme.of(context).brightness == Brightness.dark;
+
+    final WishlistController wishlistController = Get.find<WishlistController>();
+    final CartController cartController = Get.find<CartController>();
 
     return Scaffold(
       appBar: AppBar(
@@ -61,16 +76,19 @@ class productdatascreen extends StatelessWidget {
                 Positioned(
                   top: 16,
                   right: 16,
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      product.isfavorite
-                          ? Icons.favorite
-                          : Icons.favorite_border,
-                      color: product.isfavorite
-                          ? Theme.of(context).primaryColor
-                          : (isdark ? Colors.white : Colors.black),
-                    ),
+                  child: Obx(
+                    () {
+                      final isFav = wishlistController.isFavorite(product);
+                      return IconButton(
+                        onPressed: () => wishlistController.toggleFavorite(product),
+                        icon: Icon(
+                          isFav ? Icons.favorite : Icons.favorite_border,
+                          color: isFav
+                              ? Theme.of(context).primaryColor
+                              : (isdark ? Colors.white : Colors.black),
+                        ),
+                      );
+                    }
                   ),
                 ),
               ],
@@ -119,7 +137,14 @@ class productdatascreen extends StatelessWidget {
                   ),
                   SizedBox(height: screenhight * 0.01),
                   //size selector
-                  const Sizeselector(),
+                  Sizeselector(
+                    initialSize: _selectedSize,
+                    onSizeSelected: (size) {
+                      setState(() {
+                        _selectedSize = size;
+                      });
+                    },
+                  ),
                   SizedBox(height: screenhight * 0.02),
                   Text(
                     'description',
@@ -149,7 +174,18 @@ class productdatascreen extends StatelessWidget {
             children: [
               Expanded(
                 child: OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    cartController.addProduct(product, _selectedSize);
+                    Get.snackbar(
+                      'Added to Cart',
+                      '${product.name} (Size: $_selectedSize) was added to your cart.',
+                      snackPosition: SnackPosition.BOTTOM,
+                      backgroundColor: Theme.of(context).primaryColor.withOpacity(0.9),
+                      colorText: Colors.white,
+                      margin: const EdgeInsets.all(16),
+                      borderRadius: 12,
+                    );
+                  },
                   style: OutlinedButton.styleFrom(
                     padding: EdgeInsets.symmetric(vertical: screenhight * 0.02),
                     side: BorderSide(
@@ -168,7 +204,10 @@ class productdatascreen extends StatelessWidget {
               SizedBox(width: screenwidth * 0.04),
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    cartController.addProduct(product, _selectedSize);
+                    Get.to(() => const Cartscreen());
+                  },
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(vertical: screenhight * 0.02),
                     backgroundColor: Theme.of(context).primaryColor,

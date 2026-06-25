@@ -1,9 +1,9 @@
 import 'package:demo_app/features/notifications/models/myorders/model/view/screens/myorderscreen.dart';
 import 'package:demo_app/view/mainscreen.dart';
 import 'package:demo_app/widgets/textstyle.dart';
+import 'package:demo_app/widgets/video_player_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:lottie/lottie.dart';
 
 class Orderconfirmationscreen extends StatelessWidget {
   final String ordernumber;
@@ -24,11 +24,11 @@ class Orderconfirmationscreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Lottie.asset(
-                'asset/Placed Order.mp4',
+              LocalVideoPlayer(
+                assetPath: 'asset/animation/Placed Order.mp4',
                 width: 200,
                 height: 200,
-                repeat: false,
+                loop: false,
               ),
               const SizedBox(height: 32),
               Text(

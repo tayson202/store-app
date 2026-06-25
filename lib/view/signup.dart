@@ -95,7 +95,7 @@ class Signup extends StatelessWidget {
               Customtextfield(
                 label: "confirm password",
                 prefixIcon: Icons.lock_outlined,
-                controller: _passwordcontroller,
+                controller: _confirmpasswordcontroller,
                 ispassword: true,
                 keyboardType: TextInputType.visiblePassword,
                 validator: (value) {
