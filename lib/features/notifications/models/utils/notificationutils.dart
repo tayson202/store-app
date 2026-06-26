@@ -21,7 +21,7 @@ class Notificationutils {
   ) {
     switch (type) {
       case Notificationtype.order:
-        return Theme.of(context).primaryColor.withOpacity(0.1);
+        return Theme.of(context).primaryColor.withValues(alpha: 0.1);
       case Notificationtype.delivery:
         return Colors.green[100]!;
       case Notificationtype.promo:

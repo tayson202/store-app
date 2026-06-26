@@ -125,8 +125,8 @@ class Accountscreen extends StatelessWidget {
               boxShadow: [
                 BoxShadow(
                   color: isdark
-                      ? Colors.black.withOpacity(0.2)
-                      : Colors.grey.withOpacity(0.1),
+                      ? Colors.black.withValues(alpha: 0.2)
+                      : Colors.grey.withValues(alpha: 0.1),
                   blurRadius: 8,
                   offset: const Offset(0, 2),
                 ),
@@ -182,7 +182,7 @@ class Accountscreen extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor.withOpacity(0.1),
+                color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: Icon(

@@ -118,8 +118,8 @@ class Settingscreen extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               color: isdark
-                  ? Colors.black.withOpacity(0.2)
-                  : Colors.grey.withOpacity(0.1),
+                  ? Colors.black.withValues(alpha: 0.2)
+                  : Colors.grey.withValues(alpha: 0.1),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -139,8 +139,8 @@ class Settingscreen extends StatelessWidget {
           ),
           trailing: Switch.adaptive(
             value: controller.isdarkmode,
-            onChanged: (Value) => controller.toggltheme(),
-            activeColor: Theme.of(context).primaryColor,
+            onChanged: (value) => controller.toggltheme(),
+            activeThumbColor: Theme.of(context).primaryColor,
           ),
         ),
       ),
@@ -162,8 +162,8 @@ class Settingscreen extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: isdark
-                ? Colors.black.withOpacity(0.2)
-                : Colors.grey.withOpacity(0.1),
+                ? Colors.black.withValues(alpha: 0.2)
+                : Colors.grey.withValues(alpha: 0.1),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -186,8 +186,8 @@ class Settingscreen extends StatelessWidget {
         ),
         trailing: Switch.adaptive(
           value: initialvalue,
-          onChanged: (Value) {},
-          activeColor: Theme.of(context).primaryColor,
+          onChanged: (value) {},
+          activeThumbColor: Theme.of(context).primaryColor,
         ),
       ),
     );
@@ -211,8 +211,8 @@ class Settingscreen extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               color: isdark
-                  ? Colors.black.withOpacity(0.2)
-                  : Colors.grey.withOpacity(0.1),
+                  ? Colors.black.withValues(alpha: 0.2)
+                  : Colors.grey.withValues(alpha: 0.1),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),

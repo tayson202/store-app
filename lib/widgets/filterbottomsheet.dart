@@ -109,7 +109,7 @@ class Filterbottomsheet {
                         selectedColor: Theme.of(
                           context,
                           // ignore: deprecated_member_use
-                        ).primaryColor.withOpacity(0.2),
+                        ).primaryColor.withValues(alpha: 0.2),
                         labelStyle: AppTextStyles.withColor(
                           AppTextStyles.bodymid,
                           Category == 'all'

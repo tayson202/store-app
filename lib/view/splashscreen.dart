@@ -33,8 +33,8 @@ class Splashscreen extends StatelessWidget {
                 end: Alignment.bottomRight,
                 colors: [
                   primary,
-                  primary.withOpacity(0.8),
-                  primary.withOpacity(0.6),
+                  primary.withValues(alpha: 0.8),
+                  primary.withValues(alpha: 0.6),
                 ],
               ),
             ),
@@ -103,7 +103,7 @@ class Splashscreen extends StatelessWidget {
                 'style meets simple',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.9),
+                  color: Colors.white.withValues(alpha: 0.9),
                   fontSize: 14,
                   letterSpacing: 2,
                   fontWeight: FontWeight.w300,

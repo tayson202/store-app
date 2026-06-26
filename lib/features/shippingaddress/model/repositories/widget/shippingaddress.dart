@@ -102,11 +102,11 @@ class Shippingaddress extends StatelessWidget {
 
   Widget buildaddresscard(BuildContext context, int index) {
     final AddressController addressController = Get.find<AddressController>();
-    final Address = addressController.addresses[index];
+    final addr = addressController.addresses[index];
     return Addresscard(
-      address: Address,
-      onedit: () => showeditaddressbottomsheet(context, Address),
-      ondelete: () => showdeleteconfirmation(context, Address.id),
+      address: addr,
+      onedit: () => showeditaddressbottomsheet(context, addr),
+      ondelete: () => showdeleteconfirmation(context, addr.id),
     );
   }
 
@@ -279,7 +279,7 @@ class Shippingaddress extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.red.withOpacity(0.1),
+                color: Colors.red.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: const Icon(

@@ -180,7 +180,7 @@ class _ProductDataScreenState extends State<ProductDataScreen> {
                       'Added to Cart',
                       '${product.name} (Size: $_selectedSize) was added to your cart.',
                       snackPosition: SnackPosition.BOTTOM,
-                      backgroundColor: Theme.of(context).primaryColor.withOpacity(0.9),
+                      backgroundColor: Theme.of(context).primaryColor.withValues(alpha: 0.9),
                       colorText: Colors.white,
                       margin: const EdgeInsets.all(16),
                       borderRadius: 12,
@@ -240,10 +240,12 @@ Future<void> shareproduct(
   final String sharemessage = '$description\n\nshop now at $shoplink';
 
   try {
-    final ShareResult result = await Share.share(
-      sharemessage,
-      subject: productname,
-      sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+    final ShareResult result = await SharePlus.instance.share(
+      ShareParams(
+        text: sharemessage,
+        subject: productname,
+        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+      ),
     );
 
     if (result.status == ShareResultStatus.success) {
