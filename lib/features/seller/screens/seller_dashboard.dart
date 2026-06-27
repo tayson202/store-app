@@ -3,6 +3,7 @@ import 'package:demo_app/features/seller/controllers/seller_controller.dart';
 import 'package:demo_app/view/signin.dart';
 import 'package:demo_app/widgets/textstyle.dart';
 import 'package:demo_app/controllers/product.dart';
+import 'package:demo_app/view/settingscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -705,6 +706,22 @@ class _ProfileTab extends StatelessWidget {
               _InfoRow(icon: Icons.phone_outlined, label: 'Phone', value: profile.phone, isDark: isDark),
               _InfoRow(icon: Icons.description_outlined, label: 'About', value: profile.description, isDark: isDark),
               const SizedBox(height: 24),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: () => Get.to(() => const Settingscreen()),
+                  icon: const Icon(Icons.settings_outlined, color: Colors.white),
+                  label: const Text('Settings',
+                      style: TextStyle(color: Colors.white)),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: primary,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14)),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
               SizedBox(
                 width: double.infinity,
                 child: OutlinedButton.icon(

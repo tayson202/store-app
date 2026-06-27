@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:demo_app/features/reels/data/models/reel_model.dart';
 import 'package:demo_app/features/reels/domain/repositories/reel_repository.dart';
+import 'package:demo_app/features/reels/presentation/controllers/reel_feed_controller.dart';
 import 'package:get/get.dart';
 
 class ReelUploadController extends GetxController {
@@ -81,6 +82,13 @@ class ReelUploadController extends GetxController {
 
       await _repository.uploadReel(videoPath: videoPath.value, metadata: reel);
       myVideos.insert(0, reel);
+
+      // Append to the active global video feed
+      try {
+        final feedCtrl = Get.find<ReelFeedController>();
+        feedCtrl.reels.insert(0, reel);
+      } catch (_) {}
+
       _resetForm();
       Get.back();
       Get.snackbar(

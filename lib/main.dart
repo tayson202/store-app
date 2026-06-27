@@ -45,20 +45,16 @@ class StoreApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Themecontroll themeController = Get.find<Themecontroll>();
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "gymunity",
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
-      themeMode: themeController.theme,
-      defaultTransition: Transition.fade,
-      home: Splashscreen(),
-      /*routes: {
-        Home.id: (context) => Home(),
-        UpdatePage.id: (context) => UpdatePage(),
-      },
-      initialRoute: Home.id,*/
+    return GetBuilder<Themecontroll>(
+      builder: (themeController) => GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: "gymunity",
+        theme: ThemeData.light(),
+        darkTheme: ThemeData.dark(),
+        themeMode: themeController.theme,
+        defaultTransition: Transition.fade,
+        home: Splashscreen(),
+      ),
     );
   }
 }
