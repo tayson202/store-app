@@ -210,7 +210,7 @@ class ReelProductCard extends StatelessWidget {
       category: reel.category,
       price: reel.price,
       oldprice: reel.oldPrice,
-      imageurl: 'asset/OIP.webp', // use existing asset image
+      imageurl: 'asset/image/OIP.webp', // use existing asset image
       isfavorite: reel.isLiked,
       description: reel.description,
     );

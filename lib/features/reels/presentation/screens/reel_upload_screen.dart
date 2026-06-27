@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'package:demo_app/controllers/product.dart';
 import 'package:demo_app/features/reels/presentation/controllers/reel_upload_controller.dart';
+import 'package:demo_app/features/seller/controllers/seller_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -17,9 +19,31 @@ class _ReelUploadScreenState extends State<ReelUploadScreen> {
   final ImagePicker _picker = ImagePicker();
   VideoPlayerController? _previewCtrl;
 
+  // Form Field Controllers
+  final TextEditingController _titleCtrl = TextEditingController();
+  final TextEditingController _descCtrl = TextEditingController();
+  final TextEditingController _priceCtrl = TextEditingController();
+  final TextEditingController _oldPriceCtrl = TextEditingController();
+
+  Product? _selectedProduct;
+
+  @override
+  void initState() {
+    super.initState();
+    // Sync UI controllers to Rx state initially
+    _titleCtrl.text = controller.productTitle.value;
+    _descCtrl.text = controller.description.value;
+    _priceCtrl.text = controller.price.value;
+    _oldPriceCtrl.text = controller.oldPrice.value;
+  }
+
   @override
   void dispose() {
     _previewCtrl?.dispose();
+    _titleCtrl.dispose();
+    _descCtrl.dispose();
+    _priceCtrl.dispose();
+    _oldPriceCtrl.dispose();
     super.dispose();
   }
 
@@ -39,6 +63,24 @@ class _ReelUploadScreenState extends State<ReelUploadScreen> {
         });
       controller.nextStep();
     }
+  }
+
+  void _onProductSelected(Product? product) {
+    setState(() {
+      _selectedProduct = product;
+      if (product != null) {
+        _titleCtrl.text = product.name;
+        _descCtrl.text = product.description;
+        _priceCtrl.text = product.price.toString();
+        _oldPriceCtrl.text = product.oldprice?.toString() ?? '';
+
+        controller.productTitle.value = product.name;
+        controller.description.value = product.description;
+        controller.price.value = product.price.toString();
+        controller.oldPrice.value = product.oldprice?.toString() ?? '';
+        controller.category.value = product.category;
+      }
+    });
   }
 
   @override
@@ -160,17 +202,55 @@ class _ReelUploadScreenState extends State<ReelUploadScreen> {
   }
 
   Step _buildStepProductInfo(bool isDark) {
+    final sellerCtrl = Get.find<SellerController>();
+
     return Step(
       title: const Text('Details'),
       isActive: controller.currentStep.value >= 1,
       state: controller.currentStep.value > 1 ? StepState.complete : StepState.editing,
       content: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 12),
+            // Existing Product Link Dropdown
+            if (sellerCtrl.myProducts.isNotEmpty) ...[
+              const Text(
+                'Link to Existing Product (Optional)',
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 6),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                decoration: BoxDecoration(
+                  color: isDark ? Colors.white10 : Colors.grey[100],
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<Product>(
+                    value: _selectedProduct,
+                    hint: const Text('Select a product to link details'),
+                    dropdownColor: isDark ? const Color(0xFF1E1E2C) : Colors.white,
+                    style: TextStyle(color: isDark ? Colors.white : Colors.black),
+                    isExpanded: true,
+                    items: [
+                      const DropdownMenuItem<Product>(
+                        value: null,
+                        child: Text('-- Create New Product --'),
+                      ),
+                      ...sellerCtrl.myProducts.map((p) => DropdownMenuItem(value: p, child: Text(p.name))),
+                    ],
+                    onChanged: _onProductSelected,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+            ],
+
             _buildTextField(
               label: 'Product Title *',
               hint: 'e.g. Wireless Noise-Cancelling Headphones',
+              controller: _titleCtrl,
               onChanged: (val) => controller.productTitle.value = val,
               isDark: isDark,
             ),
@@ -179,6 +259,7 @@ class _ReelUploadScreenState extends State<ReelUploadScreen> {
               label: 'Short Description *',
               hint: 'Describe your product features...',
               maxLines: 3,
+              controller: _descCtrl,
               onChanged: (val) => controller.description.value = val,
               isDark: isDark,
             ),
@@ -190,6 +271,7 @@ class _ReelUploadScreenState extends State<ReelUploadScreen> {
                     label: r'Price ($) *',
                     hint: '89.99',
                     keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                    controller: _priceCtrl,
                     onChanged: (val) => controller.price.value = val,
                     isDark: isDark,
                   ),
@@ -200,6 +282,7 @@ class _ReelUploadScreenState extends State<ReelUploadScreen> {
                     label: 'Old Price (Optional)',
                     hint: '129.99',
                     keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                    controller: _oldPriceCtrl,
                     onChanged: (val) => controller.oldPrice.value = val,
                     isDark: isDark,
                   ),
@@ -322,6 +405,7 @@ class _ReelUploadScreenState extends State<ReelUploadScreen> {
     required String hint,
     int maxLines = 1,
     TextInputType? keyboardType,
+    required TextEditingController controller,
     required Function(String) onChanged,
     required bool isDark,
   }) {
@@ -340,6 +424,7 @@ class _ReelUploadScreenState extends State<ReelUploadScreen> {
             borderRadius: BorderRadius.circular(12),
           ),
           child: TextField(
+            controller: controller,
             maxLines: maxLines,
             keyboardType: keyboardType,
             style: TextStyle(color: isDark ? Colors.white : Colors.black),
@@ -376,7 +461,7 @@ class _ReelUploadScreenState extends State<ReelUploadScreen> {
               dropdownColor: isDark ? const Color(0xFF1E1E2C) : Colors.white,
               style: TextStyle(color: isDark ? Colors.white : Colors.black),
               isExpanded: true,
-              items: ['Electronics', 'Sports', 'Beauty', 'Kitchen', 'Travel', 'Home', 'Gaming']
+              items: ['creatine', 'protine', 'pants', 'accessories', 'vitamins']
                   .map((c) => DropdownMenuItem(value: c, child: Text(c)))
                   .toList(),
               onChanged: (val) {

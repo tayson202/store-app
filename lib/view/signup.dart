@@ -22,6 +22,17 @@ class _SignupState extends State<Signup> {
   final TextEditingController _confirmpasswordcontroller =
       TextEditingController();
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    _namecontroller.dispose();
+    _passwordcontroller.dispose();
+    _emailcontroller.dispose();
+    _confirmpasswordcontroller.dispose();
+    super.dispose();
+  }
+
   String _selectedRole = 'buyer'; // 'buyer' or 'seller'
 
   @override
@@ -33,175 +44,181 @@ class _SignupState extends State<Signup> {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              IconButton(
-                onPressed: () => Get.back(),
-                icon: Icon(
-                  Icons.arrow_back_ios,
-                  color: isdark ? Colors.white : Colors.black,
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                IconButton(
+                  onPressed: () => Get.back(),
+                  icon: Icon(
+                    Icons.arrow_back_ios,
+                    color: isdark ? Colors.white : Colors.black,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                "Create Account",
-                style: AppTextStyles.withColor(
-                  AppTextStyles.h1,
-                  Theme.of(context).textTheme.bodyLarge!.color!,
+                const SizedBox(height: 20),
+                Text(
+                  "Create Account",
+                  style: AppTextStyles.withColor(
+                    AppTextStyles.h1,
+                    Theme.of(context).textTheme.bodyLarge!.color!,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                "Sign up to get started",
-                style: AppTextStyles.withColor(
-                  AppTextStyles.bodylarge,
-                  isdark ? Colors.grey[400]! : Colors.grey[400]!,
+                const SizedBox(height: 8),
+                Text(
+                  "Sign up to get started",
+                  style: AppTextStyles.withColor(
+                    AppTextStyles.bodylarge,
+                    isdark ? Colors.grey[400]! : Colors.grey[400]!,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 28),
+                const SizedBox(height: 28),
 
-              // ── Role Selector ──
-              Text(
-                "I am a...",
-                style: AppTextStyles.withColor(
-                  AppTextStyles.bodymid,
-                  isdark ? Colors.white70 : Colors.black87,
+                // ── Role Selector ──
+                Text(
+                  "I am a...",
+                  style: AppTextStyles.withColor(
+                    AppTextStyles.bodymid,
+                    isdark ? Colors.white70 : Colors.black87,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 12),
-              Row(
-                children: [
-                  Expanded(
-                    child: _RoleCard(
-                      label: 'Buyer',
-                      icon: Icons.shopping_bag_outlined,
-                      selected: _selectedRole == 'buyer',
-                      primary: primary,
-                      isDark: isdark,
-                      onTap: () => setState(() => _selectedRole = 'buyer'),
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    Expanded(
+                      child: _RoleCard(
+                        label: 'Buyer',
+                        icon: Icons.shopping_bag_outlined,
+                        selected: _selectedRole == 'buyer',
+                        primary: primary,
+                        isDark: isdark,
+                        onTap: () => setState(() => _selectedRole = 'buyer'),
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: _RoleCard(
-                      label: 'Seller',
-                      icon: Icons.storefront_outlined,
-                      selected: _selectedRole == 'seller',
-                      primary: primary,
-                      isDark: isdark,
-                      onTap: () => setState(() => _selectedRole = 'seller'),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: _RoleCard(
+                        label: 'Seller',
+                        icon: Icons.storefront_outlined,
+                        selected: _selectedRole == 'seller',
+                        primary: primary,
+                        isDark: isdark,
+                        onTap: () => setState(() => _selectedRole = 'seller'),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
+                  ],
+                ),
+                const SizedBox(height: 24),
 
-              // ── Form Fields ──
-              Customtextfield(
-                label: "Full Name",
-                prefixIcon: Icons.person_outlined,
-                controller: _namecontroller,
-                keyboardType: TextInputType.name,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter your name";
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              Customtextfield(
-                label: "Email",
-                prefixIcon: Icons.email_outlined,
-                controller: _emailcontroller,
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter your email";
-                  }
-                  if (!GetUtils.isEmail(value)) {
-                    return 'Please enter a valid email';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              Customtextfield(
-                label: "Password",
-                prefixIcon: Icons.lock_outlined,
-                controller: _passwordcontroller,
-                ispassword: true,
-                keyboardType: TextInputType.visiblePassword,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter your password";
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              Customtextfield(
-                label: "Confirm Password",
-                prefixIcon: Icons.lock_outlined,
-                controller: _confirmpasswordcontroller,
-                ispassword: true,
-                keyboardType: TextInputType.visiblePassword,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please confirm your password";
-                  }
-                  if (value != _passwordcontroller.text) {
-                    return "Passwords don't match";
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 24),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: _handleSignup,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: primary,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  child: Text(
-                    'Sign Up',
-                    style: AppTextStyles.withColor(
-                      AppTextStyles.buttonmid,
-                      Colors.white,
-                    ),
-                  ),
+                // ── Form Fields ──
+                Customtextfield(
+                  label: "Full Name",
+                  prefixIcon: Icons.person_outlined,
+                  controller: _namecontroller,
+                  keyboardType: TextInputType.name,
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return "Please enter your name";
+                    }
+                    return null;
+                  },
                 ),
-              ),
-              const SizedBox(height: 24),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Already have an account?",
-                    style: AppTextStyles.withColor(
-                      AppTextStyles.bodymid,
-                      isdark ? Colors.grey[400]! : Colors.grey[600]!,
+                const SizedBox(height: 16),
+                Customtextfield(
+                  label: "Email",
+                  prefixIcon: Icons.email_outlined,
+                  controller: _emailcontroller,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return "Please enter your email";
+                    }
+                    if (!GetUtils.isEmail(value.trim())) {
+                      return 'Please enter a valid email';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16),
+                Customtextfield(
+                  label: "Password",
+                  prefixIcon: Icons.lock_outlined,
+                  controller: _passwordcontroller,
+                  ispassword: true,
+                  keyboardType: TextInputType.visiblePassword,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter your password";
+                    }
+                    if (value.length < 6) {
+                      return "Password must be at least 6 characters";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16),
+                Customtextfield(
+                  label: "Confirm Password",
+                  prefixIcon: Icons.lock_outlined,
+                  controller: _confirmpasswordcontroller,
+                  ispassword: true,
+                  keyboardType: TextInputType.visiblePassword,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please confirm your password";
+                    }
+                    if (value != _passwordcontroller.text) {
+                      return "Passwords don't match";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 24),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: _handleSignup,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: primary,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                     ),
-                  ),
-                  TextButton(
-                    onPressed: () => Get.to(() => Signin()),
                     child: Text(
-                      'Sign In',
+                      'Sign Up',
                       style: AppTextStyles.withColor(
                         AppTextStyles.buttonmid,
-                        primary,
+                        Colors.white,
                       ),
                     ),
                   ),
-                ],
-              ),
-            ],
+                ),
+                const SizedBox(height: 24),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Already have an account?",
+                      style: AppTextStyles.withColor(
+                        AppTextStyles.bodymid,
+                        isdark ? Colors.grey[400]! : Colors.grey[600]!,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () => Get.to(() => Signin()),
+                      child: Text(
+                        'Sign In',
+                        style: AppTextStyles.withColor(
+                          AppTextStyles.buttonmid,
+                          primary,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -209,14 +226,16 @@ class _SignupState extends State<Signup> {
   }
 
   void _handleSignup() {
-    final auth = Get.find<Authcontroller>();
-    auth.login(role: _selectedRole);
+    if (_formKey.currentState?.validate() ?? false) {
+      final auth = Get.find<Authcontroller>();
+      auth.login(role: _selectedRole);
 
-    if (_selectedRole == 'seller') {
-      Get.find<SellerController>(); // ensure initialized
-      Get.off(() => const SellerProfileSetup());
-    } else {
-      Get.off(() => const Mainscreen());
+      if (_selectedRole == 'seller') {
+        Get.find<SellerController>(); // ensure initialized
+        Get.off(() => const SellerProfileSetup());
+      } else {
+        Get.off(() => const Mainscreen());
+      }
     }
   }
 }

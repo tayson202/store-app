@@ -2,6 +2,7 @@ import 'package:demo_app/controllers/authcontroller.dart';
 import 'package:demo_app/features/seller/controllers/seller_controller.dart';
 import 'package:demo_app/view/signin.dart';
 import 'package:demo_app/widgets/textstyle.dart';
+import 'package:demo_app/controllers/product.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -349,8 +350,155 @@ class _ProductsTab extends StatelessWidget {
   final Color primary;
   const _ProductsTab({required this.isDark, required this.primary});
 
+  void _showProductForm(BuildContext context, SellerController sc, {Product? productToEdit, int? indexToEdit}) {
+    final titleCtrl = TextEditingController(text: productToEdit?.name ?? '');
+    final descCtrl = TextEditingController(text: productToEdit?.description ?? '');
+    final priceCtrl = TextEditingController(text: productToEdit?.price.toString() ?? '');
+    final oldPriceCtrl = TextEditingController(text: productToEdit?.oldprice?.toString() ?? '');
+    String selectedCat = productToEdit?.category ?? 'creatine';
+
+    Get.bottomSheet(
+      Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: isDark ? const Color(0xFF1E1E2C) : Colors.white,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                productToEdit == null ? 'Add Product' : 'Edit Product',
+                style: AppTextStyles.withColor(AppTextStyles.h2, isDark ? Colors.white : Colors.black),
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                controller: titleCtrl,
+                style: TextStyle(color: isDark ? Colors.white : Colors.black),
+                decoration: InputDecoration(
+                  labelText: 'Product Name',
+                  labelStyle: const TextStyle(color: Colors.grey),
+                  enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: isDark ? Colors.white24 : Colors.black12)),
+                  focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: primary)),
+                ),
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: descCtrl,
+                maxLines: 2,
+                style: TextStyle(color: isDark ? Colors.white : Colors.black),
+                decoration: InputDecoration(
+                  labelText: 'Description',
+                  labelStyle: const TextStyle(color: Colors.grey),
+                  enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: isDark ? Colors.white24 : Colors.black12)),
+                  focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: primary)),
+                ),
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: priceCtrl,
+                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                      style: TextStyle(color: isDark ? Colors.white : Colors.black),
+                      decoration: InputDecoration(
+                        labelText: 'Price',
+                        labelStyle: const TextStyle(color: Colors.grey),
+                        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: isDark ? Colors.white24 : Colors.black12)),
+                        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: primary)),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: TextField(
+                      controller: oldPriceCtrl,
+                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                      style: TextStyle(color: isDark ? Colors.white : Colors.black),
+                      decoration: InputDecoration(
+                        labelText: 'Old Price (Optional)',
+                        labelStyle: const TextStyle(color: Colors.grey),
+                        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: isDark ? Colors.white24 : Colors.black12)),
+                        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: primary)),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              DropdownButtonFormField<String>(
+                value: selectedCat,
+                dropdownColor: isDark ? const Color(0xFF1E1E2C) : Colors.white,
+                style: TextStyle(color: isDark ? Colors.white : Colors.black),
+                decoration: InputDecoration(
+                  labelText: 'Category',
+                  labelStyle: const TextStyle(color: Colors.grey),
+                  enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: isDark ? Colors.white24 : Colors.black12)),
+                  focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: primary)),
+                ),
+                items: ['creatine', 'protine', 'pants', 'accessories', 'vitamins']
+                    .map((cat) => DropdownMenuItem(value: cat, child: Text(cat)))
+                    .toList(),
+                onChanged: (val) {
+                  if (val != null) selectedCat = val;
+                },
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    final name = titleCtrl.text.trim();
+                    final desc = descCtrl.text.trim();
+                    final price = double.tryParse(priceCtrl.text) ?? 0.0;
+                    final oldPrice = double.tryParse(oldPriceCtrl.text);
+
+                    if (name.isEmpty || desc.isEmpty || price <= 0) {
+                      Get.snackbar('Required Fields', 'Please fill in all mandatory fields.');
+                      return;
+                    }
+
+                    final newProduct = Product(
+                      name: name,
+                      category: selectedCat,
+                      price: price,
+                      oldprice: oldPrice,
+                      imageurl: productToEdit?.imageurl ?? 'asset/image/OIP.webp',
+                      description: desc,
+                      isfavorite: productToEdit?.isfavorite ?? false,
+                    );
+
+                    if (productToEdit == null) {
+                      sc.addProduct(newProduct);
+                      Get.snackbar('Success', 'Product added successfully.');
+                    } else {
+                      sc.updateProduct(indexToEdit!, newProduct);
+                      Get.snackbar('Success', 'Product updated successfully.');
+                    }
+                    Get.back();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: primary,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                  ),
+                  child: Text(productToEdit == null ? 'Add Product' : 'Save Changes'),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      isScrollControlled: true,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final SellerController sc = Get.find<SellerController>();
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
@@ -363,29 +511,91 @@ class _ProductsTab extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.add_rounded, color: primary),
-            onPressed: () => Get.snackbar('Coming Soon',
-                'Add product feature is coming soon!',
-                snackPosition: SnackPosition.BOTTOM),
+            onPressed: () => _showProductForm(context, sc),
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.inventory_2_outlined,
-                size: 80, color: Colors.grey[300]),
-            const SizedBox(height: 16),
-            Text('No products yet',
-                style: AppTextStyles.withColor(
-                    AppTextStyles.h1,
-                    isDark ? Colors.white54 : Colors.black38)),
-            const SizedBox(height: 8),
-            Text('Tap + to add your first product',
-                style: TextStyle(color: Colors.grey[500])),
-          ],
-        ),
-      ),
+      body: Obx(() {
+        if (sc.myProducts.isEmpty) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.inventory_2_outlined,
+                    size: 80, color: Colors.grey[300]),
+                const SizedBox(height: 16),
+                Text('No products yet',
+                    style: AppTextStyles.withColor(
+                        AppTextStyles.h1,
+                        isDark ? Colors.white54 : Colors.black38)),
+                const SizedBox(height: 8),
+                Text('Tap + to add your first product',
+                    style: TextStyle(color: Colors.grey[500])),
+              ],
+            ),
+          );
+        }
+
+        return ListView.builder(
+          padding: const EdgeInsets.all(16),
+          itemCount: sc.myProducts.length,
+          itemBuilder: (context, index) {
+            final p = sc.myProducts[index];
+            return Card(
+              color: isDark ? const Color(0xFF252538) : Colors.white,
+              margin: const EdgeInsets.only(bottom: 12),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              child: ListTile(
+                contentPadding: const EdgeInsets.all(12),
+                leading: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.asset(p.imageurl, width: 50, height: 50, fit: BoxFit.cover, errorBuilder: (_, __, ___) => Container(color: Colors.grey[800], child: const Icon(Icons.shopping_bag))),
+                ),
+                title: Text(p.name, style: const TextStyle(fontWeight: FontWeight.bold)),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(p.category, style: const TextStyle(color: Colors.grey, fontSize: 12)),
+                    const SizedBox(height: 4),
+                    Text('\$${p.price.toStringAsFixed(2)}', style: TextStyle(color: primary, fontWeight: FontWeight.bold)),
+                  ],
+                ),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.edit_outlined, color: Colors.blue),
+                      onPressed: () => _showProductForm(context, sc, productToEdit: p, indexToEdit: index),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.delete_outline_rounded, color: Colors.redAccent),
+                      onPressed: () {
+                        Get.dialog(
+                          AlertDialog(
+                            title: const Text('Delete Product?'),
+                            content: Text('Are you sure you want to delete ${p.name}?'),
+                            actions: [
+                              TextButton(onPressed: () => Get.back(), child: const Text('Cancel')),
+                              ElevatedButton(
+                                onPressed: () {
+                                  sc.deleteProduct(p);
+                                  Get.back();
+                                },
+                                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                                child: const Text('Delete'),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      }),
     );
   }
 }

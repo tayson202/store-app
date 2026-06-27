@@ -8,10 +8,36 @@ import 'package:demo_app/widgets/textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Signin extends StatelessWidget {
-  Signin({super.key});
+class Signin extends StatefulWidget {
+  const Signin({super.key});
+
+  @override
+  State<Signin> createState() => _SigninState();
+}
+
+class _SigninState extends State<Signin> {
   final TextEditingController _emailcontroller = TextEditingController();
   final TextEditingController _passwordcontroller = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    _emailcontroller.dispose();
+    _passwordcontroller.dispose();
+    super.dispose();
+  }
+
+  void _handlesignin() {
+    if (_formKey.currentState?.validate() ?? false) {
+      final Authcontroller authcontroller = Get.find<Authcontroller>();
+      authcontroller.login(role: authcontroller.role);
+      if (authcontroller.isSeller) {
+        Get.offAll(() => const SellerDashboard());
+      } else {
+        Get.offAll(() => const Mainscreen());
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,124 +47,123 @@ class Signin extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 40),
-              Text(
-                "Welcome back",
-                style: AppTextStyles.withColor(
-                  AppTextStyles.h1,
-                  Theme.of(context).textTheme.bodyLarge!.color!,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                "sign in to continue",
-                style: AppTextStyles.withColor(
-                  AppTextStyles.bodylarge,
-                  isdark ? Colors.grey[400]! : Colors.grey[600]!,
-                ),
-              ),
-              const SizedBox(height: 40),
-              Customtextfield(
-                label: "email",
-                prefixIcon: Icons.email_outlined,
-                controller: _emailcontroller,
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "please enter a valid email";
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              Customtextfield(
-                label: "password",
-                prefixIcon: Icons.lock_outlined,
-                controller: _passwordcontroller,
-                ispassword: true,
-                keyboardType: TextInputType.visiblePassword,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "please enter a valid password";
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 8),
-              Align(
-                alignment: AlignmentGeometry.centerRight,
-                child: TextButton(
-                  onPressed: () => Get.to(() => Forgetpassword()),
-                  child: Text(
-                    "forgot password?",
-                    style: AppTextStyles.withColor(
-                      AppTextStyles.buttonmid,
-                      Theme.of(context).primaryColor,
-                    ),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 40),
+                Text(
+                  "Welcome back",
+                  style: AppTextStyles.withColor(
+                    AppTextStyles.h1,
+                    Theme.of(context).textTheme.bodyLarge!.color!,
                   ),
                 ),
-              ),
-              const SizedBox(height: 24),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: _handlesignin,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).primaryColor,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  child: Text(
-                    'signin',
-                    style: AppTextStyles.withColor(
-                      AppTextStyles.buttonmid,
-                      Colors.white,
-                    ),
+                const SizedBox(height: 8),
+                Text(
+                  "sign in to continue",
+                  style: AppTextStyles.withColor(
+                    AppTextStyles.bodylarge,
+                    isdark ? Colors.grey[400]! : Colors.grey[600]!,
                   ),
                 ),
-              ),
-              const SizedBox(height: 24),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "dont have an account?",
-                    style: AppTextStyles.withColor(
-                      AppTextStyles.bodymid,
-                      isdark ? Colors.grey[400]! : Colors.grey[600]!,
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () => Get.to(() => Signup()),
+                const SizedBox(height: 40),
+                Customtextfield(
+                  label: "email",
+                  prefixIcon: Icons.email_outlined,
+                  controller: _emailcontroller,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return "please enter your email";
+                    }
+                    if (!GetUtils.isEmail(value.trim())) {
+                      return "please enter a valid email address";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16),
+                Customtextfield(
+                  label: "password",
+                  prefixIcon: Icons.lock_outlined,
+                  controller: _passwordcontroller,
+                  ispassword: true,
+                  keyboardType: TextInputType.visiblePassword,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "please enter your password";
+                    }
+                    if (value.length < 6) {
+                      return "password must be at least 6 characters";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 8),
+                Align(
+                  alignment: AlignmentGeometry.centerRight,
+                  child: TextButton(
+                    onPressed: () => Get.to(() => Forgetpassword()),
                     child: Text(
-                      'sign up',
+                      "forgot password?",
                       style: AppTextStyles.withColor(
                         AppTextStyles.buttonmid,
                         Theme.of(context).primaryColor,
                       ),
                     ),
                   ),
-                ],
-              ),
-            ],
+                ),
+                const SizedBox(height: 24),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: _handlesignin,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).primaryColor,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: Text(
+                      'signin',
+                      style: AppTextStyles.withColor(
+                        AppTextStyles.buttonmid,
+                        Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "dont have an account?",
+                      style: AppTextStyles.withColor(
+                        AppTextStyles.bodymid,
+                        isdark ? Colors.grey[400]! : Colors.grey[600]!,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () => Get.to(() => const Signup()),
+                      child: Text(
+                        'sign up',
+                        style: AppTextStyles.withColor(
+                          AppTextStyles.buttonmid,
+                          Theme.of(context).primaryColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
-  }
-
-  void _handlesignin() {
-    final Authcontroller authcontroller = Get.find<Authcontroller>();
-    authcontroller.login(role: authcontroller.role);
-    if (authcontroller.isSeller) {
-      Get.offAll(() => const SellerDashboard());
-    } else {
-      Get.offAll(() => const Mainscreen());
-    }
   }
 }
