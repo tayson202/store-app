@@ -43,8 +43,8 @@ class Ordersummarycard extends StatelessWidget {
     String value, {
     bool istotal = false,
   }) {
-    final TextStyle = istotal ? AppTextStyles.h3 : AppTextStyles.bodylarge;
-    final Color = istotal
+    final textStyle = istotal ? AppTextStyles.h3 : AppTextStyles.bodylarge;
+    final color = istotal
         ? Theme.of(context).primaryColor
         : Theme.of(context).textTheme.bodyLarge!.color!;
 
@@ -53,11 +53,11 @@ class Ordersummarycard extends StatelessWidget {
       children: [
       Text(
         label,
-        style: AppTextStyles.withColor(TextStyle, Color),
+        style: AppTextStyles.withColor(textStyle, color),
       ),
       Text(
         value,
-        style: AppTextStyles.withColor(TextStyle, Color),
+        style: AppTextStyles.withColor(textStyle, color),
       )
 
       ],

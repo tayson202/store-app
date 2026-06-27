@@ -12,7 +12,7 @@ class Notificationscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isdark = Theme.of(context).brightness == Brightness.dark;
-    final Notification = repository.getnotifications();
+    final notifications = repository.getnotifications();
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -44,9 +44,9 @@ class Notificationscreen extends StatelessWidget {
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(16),
-        itemCount: Notification.length,
+        itemCount: notifications.length,
         itemBuilder: (context, index) =>
-            buildnotificationcard(context, Notification[index]),
+            buildnotificationcard(context, notifications[index]),
       ),
     );
   }

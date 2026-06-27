@@ -25,6 +25,11 @@ class Custombuttomnavbar extends StatelessWidget {
             backgroundColor: Colors.redAccent,
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.video_library_outlined),
+            label: 'reels',
+            backgroundColor: Colors.redAccent,
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.favorite_outlined),
             label: 'wishlist',
             backgroundColor: Colors.redAccent,

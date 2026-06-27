@@ -56,12 +56,12 @@ class Myorderscreen extends StatelessWidget {
   Widget buildorderlist(BuildContext context, orderstatus status) {
     // ignore: unused_local_variable
     final isdark = Theme.of(context).brightness == Brightness.dark;
-    final Order = repository.getorderbystatus(status);
+    final orders = repository.getorderbystatus(status);
     return ListView.builder(
       padding: const EdgeInsets.all(16),
-      itemCount: Order.length,
+      itemCount: orders.length,
       itemBuilder: (context, index) =>
-          Ordercard(order: Order[index], onviewdetails: () {}),
+          Ordercard(order: orders[index], onviewdetails: () {}),
     );
   }
 }

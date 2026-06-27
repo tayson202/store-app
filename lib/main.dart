@@ -5,6 +5,12 @@ import 'package:demo_app/controllers/navigation_controller.dart';
 import 'package:demo_app/controllers/themecontroll.dart';
 import 'package:demo_app/controllers/wishlist_controller.dart';
 import 'package:demo_app/features/seller/controllers/seller_controller.dart';
+import 'package:demo_app/features/reels/data/datasources/reel_remote_datasource_mock.dart';
+import 'package:demo_app/features/reels/data/repositories/reel_repository_impl.dart';
+import 'package:demo_app/features/reels/domain/repositories/reel_repository.dart';
+import 'package:demo_app/features/reels/presentation/controllers/reel_feed_controller.dart';
+import 'package:demo_app/features/reels/presentation/controllers/reel_interaction_controller.dart';
+import 'package:demo_app/features/reels/presentation/controllers/reel_upload_controller.dart';
 import 'package:demo_app/view/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,6 +25,14 @@ void main() async {
   Get.put(CartController());
   Get.put(AddressController());
   Get.put(SellerController());
+
+  // Reels Clean Architecture DI Setup
+  final reelRepo = ReelRepositoryImpl(ReelRemoteDatasourceMock());
+  Get.put<ReelRepository>(reelRepo);
+  Get.put(ReelFeedController(reelRepo));
+  Get.put(ReelInteractionController(reelRepo));
+  Get.put(ReelUploadController(reelRepo));
+
   runApp(const StoreApp());
 }
 

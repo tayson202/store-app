@@ -6,6 +6,7 @@ import 'package:demo_app/features/shippingaddress/model/repositories/widget/ship
 import 'package:demo_app/view/settingscreen.dart';
 import 'package:demo_app/view/signin.dart';
 import 'package:demo_app/widgets/textstyle.dart';
+import 'package:demo_app/features/reels/presentation/screens/reel_dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -107,9 +108,12 @@ class Accountscreen extends StatelessWidget {
 
   Widget buildmenusection(BuildContext context) {
     final isdark = Theme.of(context).brightness == Brightness.dark;
+    final Authcontroller auth = Get.find<Authcontroller>();
     final menuitems = [
       {'icon': Icons.shopping_bag_outlined, 'title': 'my orders'},
       {'icon': Icons.location_on_outlined, 'title': 'address'},
+      if (auth.isSeller)
+        {'icon': Icons.video_settings_rounded, 'title': 'showcase studio'},
       {'icon': Icons.help_outline, 'title': 'help center'},
       {'icon': Icons.logout_outlined, 'title': 'logout'},
     ];
@@ -157,6 +161,8 @@ class Accountscreen extends StatelessWidget {
                   Get.to(() => Shippingaddress());
                 } else if (item['title'] == 'help center') {
                   Get.to(() => Helpcenterscreen());
+                } else if (item['title'] == 'showcase studio') {
+                  Get.to(() => const ReelDashboardScreen());
                 }
               },
             ),

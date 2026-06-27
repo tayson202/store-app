@@ -5,6 +5,7 @@ import 'package:demo_app/view/homescreen.dart';
 import 'package:demo_app/view/shoppingscreen.dart';
 import 'package:demo_app/view/wishlistscreen.dart';
 import 'package:demo_app/widgets/CustomButtomNavBar.dart';
+import 'package:demo_app/features/reels/presentation/screens/reel_feed_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -27,6 +28,7 @@ class Mainscreen extends StatelessWidget {
               children: const [
                 Homescreen(),
                 Shoppingscreen(),
+                ReelFeedScreen(),
                 Wishlistscreen(),
                 Accountscreen(),
               ],

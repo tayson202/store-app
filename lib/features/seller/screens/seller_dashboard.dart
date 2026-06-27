@@ -164,7 +164,7 @@ class _HomeTab extends StatelessWidget {
               Text(
                 'Overview',
                 style: AppTextStyles.withColor(
-                  AppTextStyles.h2 ?? AppTextStyles.h1,
+                  AppTextStyles.h2,
                   isDark ? Colors.white : Colors.black,
                 ),
               ),
@@ -358,7 +358,7 @@ class _ProductsTab extends StatelessWidget {
         elevation: 0,
         title: Text('My Products',
             style: AppTextStyles.withColor(
-                AppTextStyles.h2 ?? AppTextStyles.h1,
+                AppTextStyles.h2,
                 isDark ? Colors.white : Colors.black)),
         actions: [
           IconButton(
@@ -405,7 +405,7 @@ class _OrdersTab extends StatelessWidget {
         elevation: 0,
         title: Text('Orders',
             style: AppTextStyles.withColor(
-                AppTextStyles.h2 ?? AppTextStyles.h1,
+                AppTextStyles.h2,
                 isDark ? Colors.white : Colors.black)),
       ),
       body: Center(
@@ -446,7 +446,7 @@ class _ProfileTab extends StatelessWidget {
         elevation: 0,
         title: Text('My Profile',
             style: AppTextStyles.withColor(
-                AppTextStyles.h2 ?? AppTextStyles.h1,
+                AppTextStyles.h2,
                 isDark ? Colors.white : Colors.black)),
       ),
       body: Obx(() {
