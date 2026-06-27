@@ -1,4 +1,5 @@
 import 'package:demo_app/controllers/authcontroller.dart';
+import 'package:demo_app/features/seller/screens/seller_dashboard.dart';
 import 'package:demo_app/view/forgetpassword.dart';
 import 'package:demo_app/view/mainscreen.dart';
 import 'package:demo_app/view/signup.dart';
@@ -133,7 +134,11 @@ class Signin extends StatelessWidget {
 
   void _handlesignin() {
     final Authcontroller authcontroller = Get.find<Authcontroller>();
-    authcontroller.login();
-    Get.offAll(() => const Mainscreen());
+    authcontroller.login(role: authcontroller.role);
+    if (authcontroller.isSeller) {
+      Get.offAll(() => const SellerDashboard());
+    } else {
+      Get.offAll(() => const Mainscreen());
+    }
   }
 }

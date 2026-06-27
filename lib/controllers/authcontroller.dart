@@ -5,8 +5,13 @@ class Authcontroller extends GetxController {
   final _storage = GetStorage();
   final RxBool _isfirsttime = true.obs;
   final RxBool _isloggedin = false.obs;
+  final RxString _role = 'buyer'.obs; // 'buyer' or 'seller'
+
   bool get isfirsttime => _isfirsttime.value;
   bool get isloggedin => _isloggedin.value;
+  String get role => _role.value;
+  bool get isSeller => _role.value == 'seller';
+
   @override
   void onInit() {
     super.onInit();
@@ -16,6 +21,7 @@ class Authcontroller extends GetxController {
   void _loadInitialstate() {
     _isfirsttime.value = _storage.read('isfirsttime') ?? true;
     _isloggedin.value = _storage.read('isloggedin') ?? false;
+    _role.value = _storage.read('role') ?? 'buyer';
   }
 
   void setFirstTimeDone() {
@@ -23,9 +29,11 @@ class Authcontroller extends GetxController {
     _storage.write('isfirsttime', false);
   }
 
-  void login() {
+  void login({String role = 'buyer'}) {
     _isloggedin.value = true;
+    _role.value = role;
     _storage.write('isloggedin', true);
+    _storage.write('role', role);
   }
 
   void logout() {
